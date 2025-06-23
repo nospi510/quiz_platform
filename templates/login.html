@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Connexion{% endblock %}
+{% block content %}
+    <h1 class="text-2xl font-bold mb-4">Connexion</h1>
+    <form method="POST" class="bg-white p-6 rounded shadow-md">
+        {{ form.hidden_tag() }}
+        <div class="mb-4">
+            {{ form.username.label }}<br>
+            {{ form.username(class="w-full p-2 border rounded") }}
+            {% if form.username.errors %}
+                <div class="text-red-600">{{ form.username.errors[0] }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-4">
+            {{ form.password.label }}<br>
+            {{ form.password(class="w-full p-2 border rounded") }}
+            {% if form.password.errors %}
+                <div class="text-red-600">{{ form.password.errors[0] }}</div>
+            {% endif %}
+        </div>
+        {{ form.submit(class="bg-blue-600 text-white p-2 rounded hover:bg-blue-700") }}
+    </form>
+{% endblock %}

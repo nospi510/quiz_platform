@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-blue-600 text-white p-4">
+        <div class="container mx-auto flex justify-between">
+            <a href="{{ url_for('quiz.quiz') }}" class="font-bold">Plateforme Quiz</a>
+            {% if current_user.is_authenticated %}
+                <div>
+                    <span>Bonjour, {{ current_user.username }}</span>
+                    <a href="{{ url_for('auth.logout') }}" class="ml-4">Déconnexion</a>
+                    {% if current_user.is_admin %}
+                        <a href="{{ url_for('admin.admin_results') }}" class="ml-4">Résultats Admin</a>
+                    {% endif %}
+                </div>
+            {% else %}
+                <div>
+                    <a href="{{ url_for('auth.login') }}" class="mr-4">Connexion</a>
+                    <a href="{{ url_for('auth.register') }}">Inscription</a>
+                </div>
+            {% endif %}
+        </div>
+    </nav>
+    <div class="container mx-auto mt-8">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="bg-{{ 'green' if category == 'success' else 'red' }}-100 border border-{{ 'green' if category == 'success' else 'red' }}-400 text-{{ 'green' if category == 'success' else 'red' }}-700 px-4 py-3 rounded mb-4">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

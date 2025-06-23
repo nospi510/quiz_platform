@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Quiz{% endblock %}
+{% block content %}
+    <h1 class="text-2xl font-bold mb-4">Question {{ question_number }} / {{ total_questions }}</h1>
+    <form method="POST" class="bg-white p-6 rounded shadow-md">
+        <input type="hidden" name="question_id" value="{{ question.id }}">
+        <p class="mb-4">{{ question.text }}</p>
+        <div class="mb-4">
+            <label><input type="radio" name="option" value="1" required> {{ question.option1 }}</label><br>
+            <label><input type="radio" name="option" value="2" required> {{ question.option2 }}</label><br>
+            <label><input type="radio" name="option" value="3" required> {{ question.option3 }}</label><br>
+            <label><input type="radio" name="option" value="4" required> {{ question.option4 }}</label>
+        </div>
+        <button type="submit" class="bg-blue-600 text-white p-2 rounded hover:bg-blue-700">Suivant</button>
+    </form>
+{% endblock %}

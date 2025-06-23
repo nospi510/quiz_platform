@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Résultats Admin{% endblock %}
+{% block content %}
+    <h1 class="text-2xl font-bold mb-4">Résultats des Participants</h1>
+    <table class="w-full border-collapse border">
+        <thead>
+            <tr class="bg-gray-200">
+                <th class="border p-2">Utilisateur</th>
+                <th class="border p-2">Bonnes réponses</th>
+                <th class="border p-2">Mauvaises réponses</th>
+                <th class="border p-2">Détails</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+                <tr>
+                    <td class="border p-2">{{ result.username }}</td>
+                    <td class="border p-2">{{ result.correct }}</td>
+                    <td class="border p-2">{{ result.incorrect }}</td>
+                    <td class="border p-2">
+                        <ul>
+                            {% for answer in result.answers %}
+                                <li>
+                                    Question {{ answer.user_answer.question_id }} : {{ answer.question.text }}<br>
+                                    Réponse : {{ answer.selected_option_text }} 
+                                    {% if answer.user_answer.selected_option == answer.question.correct_option %}
+                                        (Correcte)
+                                    {% else %}
+                                        (Incorrecte, Bonne réponse : {{ answer.correct_option_text }})
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
