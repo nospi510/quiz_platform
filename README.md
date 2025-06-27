@@ -23,10 +23,14 @@ Avant de commencer, assurez-vous d’avoir :
 ### 🔐 Configurer les permissions sur les fichiers Asterisk :
 
 ```bash
-sudo chown :www-data /etc/asterisk/pjsip.conf /etc/asterisk/extensions.conf
+sudo chown asterisk:asterisk /etc/asterisk/pjsip.conf /etc/asterisk/extensions.conf
 sudo chmod 664 /etc/asterisk/pjsip.conf /etc/asterisk/extensions.conf
 ```
+Ajoutez www-data au groupe asterisk : 
 
+```bash
+usermod -a -G asterisk www-data
+```
 ---
 
 ## ⚙️ Installation
@@ -34,8 +38,9 @@ sudo chmod 664 /etc/asterisk/pjsip.conf /etc/asterisk/extensions.conf
 ### 1. Cloner le dépôt
 
 ```bash
-git clone https://github.com/<ton-username>/quiz_platform.git
+git clone https://github.com/nospi510/quiz_platform.git
 cd quiz_platform
+git checkout php
 ```
 
 ### 2. Installer les dépendances PHP
