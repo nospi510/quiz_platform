@@ -10,7 +10,8 @@ Les administrateurs peuvent consulter les résultats et promouvoir d’autres ad
 
 Avant de commencer, assurez-vous d’avoir :
 
-* **PHP 8.1+** avec les extensions `pdo_mysql`, `openssl` et `json`.
+* **Apache 2** avec ses composant php .
+* **PHP 8.2+** avec les extensions `libapache2-mod-php` `pdo_mysql`, `openssl` et `json` .
 * **MySQL/MariaDB** pour la gestion des bases de données.
 * **Asterisk** configuré avec **PJSIP** :
 
@@ -110,6 +111,7 @@ Activer le site et recharger Apache :
 
 ```bash
 sudo a2ensite quiz_platform
+sudo a2enmod rewrite
 sudo systemctl reload apache2
 ```
 
