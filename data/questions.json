@@ -1,0 +1,12 @@
+[
+    {
+        "text": "Quelle est la capitale du SÉNÉGAL ?",
+        "options": ["Dakar", "Kaolak", "Saint Louis", "Ziguinchor"],
+        "correct_option": 1
+    },
+    {
+        "text": "Quel est le plus grand planète du système solaire ?",
+        "options": ["Terre", "Mars", "Jupiter", "Saturne"],
+        "correct_option": 3
+    }
+]
