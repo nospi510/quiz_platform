@@ -21,7 +21,6 @@ class User {
             $user->id = $data['id'];
             $user->username = $data['username'];
             $user->password = $data['password'];
-            $user->extension = $data['extension'];
             $user->is_admin = (bool)$data['is_admin'];
             return $user;
         }
@@ -38,7 +37,6 @@ class User {
             $user->id = $data['id'];
             $user->username = $data['username'];
             $user->password = $data['password'];
-            $user->extension = $data['extension'];
             $user->is_admin = (bool)$data['is_admin'];
             return $user;
         }
@@ -54,7 +52,6 @@ class User {
             $user->id = $data['id'];
             $user->username = $data['username'];
             $user->password = $data['password'];
-            $user->extension = $data['extension'];
             $user->is_admin = (bool)$data['is_admin'];
             $users[] = $user;
         }
@@ -63,11 +60,10 @@ class User {
 
     public function save() {
         $db = \Database::getConnection();
-        $stmt = $db->prepare("INSERT INTO users (username, password, extension, is_admin) VALUES (:username, :password, :extension, :is_admin)");
+        $stmt = $db->prepare("INSERT INTO users (username, password, is_admin) VALUES (:username, :password,  :is_admin)");
         return $stmt->execute([
             'username' => $this->username,
             'password' => $this->password,
-            'extension' => $this->extension,
             'is_admin' => $this->is_admin ? 1 : 0
         ]);
     }

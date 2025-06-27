@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Question;
 use App\Models\UserAnswer;
+use App\Models\QuizSettings;
 
 class QuizController {
     public function showQuiz() {
@@ -13,12 +14,34 @@ class QuizController {
             exit;
         }
 
+        $settings = QuizSettings::getSettings();
+        if (!$settings->is_active) {
+            error_log("Quiz non activé pour l'utilisateur {$_SESSION['user_id']}.");
+            require_once __DIR__ . '/../Views/quiz/quiz.php';
+            return;
+        }
+
         $total_questions = Question::count();
         if ($total_questions === 0) {
             $_SESSION['error'] = 'Aucune question disponible dans le quiz.';
             header('Location: /quiz/results');
             exit;
         }
+
+        // Vérifier le temps restant
+        $start_time = strtotime($settings->start_time);
+        $current_time = time();
+        $elapsed_time = $current_time - $start_time;
+        $time_limit = 300; // 5 minutes en secondes
+        if ($elapsed_time >= $time_limit) {
+            error_log("Temps écoulé pour l'utilisateur {$_SESSION['user_id']}. Marquage des réponses non soumises.");
+            UserAnswer::markUnansweredAsIncorrect($_SESSION['user_id'], $total_questions);
+            header('Location: /quiz/results');
+            exit;
+        }
+
+        // Calculer le temps restant pour la vue
+        $remaining_time = $time_limit - $elapsed_time;
 
         // Vérifier si l'utilisateur a déjà répondu à toutes les questions
         $user_answers_count = UserAnswer::countByUserId($_SESSION['user_id']);
@@ -34,7 +57,7 @@ class QuizController {
             $selected_option = filter_input(INPUT_POST, 'option', FILTER_VALIDATE_INT);
 
             if ($question_id && $selected_option) {
-                // Vérifier si la réponse n'a pas déjà été enregistrée pour cette question
+                // Vérifier si la réponse n'a pas déjà été enregistrée
                 $db = \Database::getConnection();
                 $stmt = $db->prepare("SELECT COUNT(*) FROM user_answers WHERE user_id = :user_id AND question_id = :question_id");
                 $stmt->execute(['user_id' => $_SESSION['user_id'], 'question_id' => $question_id]);

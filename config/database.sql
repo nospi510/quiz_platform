@@ -5,7 +5,6 @@ CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    extension VARCHAR(10) NOT NULL UNIQUE,
     is_admin BOOLEAN DEFAULT FALSE
 );
 
@@ -28,25 +27,12 @@ CREATE TABLE IF NOT EXISTS user_answers (
     FOREIGN KEY (question_id) REFERENCES questions(id)
 );
 
-CREATE DATABASE IF NOT EXISTS asteriskCDR;
-USE asteriskCDR;
-
-CREATE TABLE IF NOT EXISTS cdr (
-  calldate DATETIME NOT NULL,
-  clid VARCHAR(80) NOT NULL DEFAULT 'aDefaultValue',
-  src VARCHAR(80) NOT NULL DEFAULT 'aDefaultValue',
-  dst VARCHAR(80) NOT NULL DEFAULT 'aDefaultValue',
-  dcontext VARCHAR(80) NOT NULL DEFAULT 'aDefaultValue',
-  channel VARCHAR(80) NOT NULL DEFAULT 'aDefaultValue',
-  dstchannel VARCHAR(80) NOT NULL DEFAULT 'aDefaultValue',
-  lastapp VARCHAR(80) NOT NULL DEFAULT 'aDefaultValue',
-  lastdata VARCHAR(80) NOT NULL DEFAULT 'aDefaultValue',
-  duration INT(11) NOT NULL DEFAULT 0,
-  billsec INT(11) NOT NULL DEFAULT 0,
-  disposition VARCHAR(45) NOT NULL DEFAULT 'aDefaultValue',
-  amaflags INT(11) NOT NULL DEFAULT 0,
-  accountcode VARCHAR(20) NOT NULL DEFAULT 'aDefaultValue',
-  uniqueid VARCHAR(32) NOT NULL DEFAULT 'aDefaultValue',
-  userfield VARCHAR(255) NOT NULL DEFAULT 'aDefaultValue'
+CREATE TABLE IF NOT EXISTS quiz_settings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    is_active BOOLEAN DEFAULT FALSE,
+    start_time DATETIME DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+INSERT INTO quiz_settings (is_active, start_time) VALUES (FALSE, NULL);
 

@@ -1,6 +1,6 @@
 # 📚 Quiz Platform (PHP)
 
-Une plateforme de quiz en ligne intégrée à **Asterisk** pour la gestion d’utilisateurs VoIP.
+Une plateforme de quiz en ligne.
 Les utilisateurs peuvent s’inscrire, se connecter, et répondre à un quiz.
 Les administrateurs peuvent consulter les résultats et promouvoir d’autres administrateurs.
 
@@ -13,26 +13,10 @@ Avant de commencer, assurez-vous d’avoir :
 * **Apache 2** avec ses composant php .
 * **PHP 8.2+** avec les extensions `libapache2-mod-php` `pdo_mysql`, `openssl` et `json` .
 * **MySQL/MariaDB** pour la gestion des bases de données.
-* **Asterisk** configuré avec **PJSIP** :
-
-  * Les fichiers `/etc/asterisk/pjsip.conf` et `/etc/asterisk/extensions.conf` doivent être accessibles en écriture.
 * **Composer** pour gérer les dépendances PHP.
 * **Serveur web** (Apache ou Nginx recommandé).
-* **Zoiper** (ou autre client SIP) pour tester les comptes (facultatif, car l’appel n’est pas requis pour le quiz).
-* **Droits** : l’utilisateur exécutant PHP (ex. `www-data`) doit avoir les permissions d’écriture sur les fichiers Asterisk.
 
-### 🔐 Configurer les permissions sur les fichiers Asterisk :
 
-```bash
-sudo chown asterisk:asterisk /etc/asterisk/pjsip.conf /etc/asterisk/extensions.conf
-sudo chmod 664 /etc/asterisk/pjsip.conf /etc/asterisk/extensions.conf
-```
-Ajoutez www-data au groupe asterisk : 
-
-```bash
-usermod -a -G asterisk www-data
-```
----
 
 ## ⚙️ Installation
 
@@ -74,7 +58,6 @@ DB_HOST=localhost
 DB_NAME=quiz_platform
 DB_USER=quiz_user
 DB_PASS=passer
-ASTERISK_CDR_DB_NAME=asteriskCDR
 ```
 
 ### 6. Charger les questions depuis le fichier JSON
@@ -157,17 +140,6 @@ Un administrateur peut :
 
 * Voir les résultats : `/admin/results`
 * Créer un admin : `/admin/create_admin`
-
-### ☎️ Tester avec Zoiper (optionnel)
-
-Configurer un compte SIP dans Zoiper avec :
-
-* Nom d’utilisateur : identique à l’inscription
-* Mot de passe : défini à l’inscription
-* Extension : ex. `5001`
-* IP du serveur : `192.168.0.106`
-* Port : `5060`
-* Protocole : `UDP`
 
 ---
 

@@ -42,13 +42,22 @@ switch ($uri) {
         $quizController->showResults();
         break;
     case '/admin/results':
-        $adminController->showResults();
+        if ($method === 'GET' || $method === 'POST') {
+            $adminController->showResults();
+        }
         break;
     case '/admin/create_admin':
         if ($method === 'GET') {
             $adminController->showCreateAdmin();
         } elseif ($method === 'POST') {
             $adminController->createAdmin();
+        }
+        break;
+    case '/admin/quiz_settings':
+        if ($method === 'GET') {
+            $adminController->showQuizSettings();
+        } elseif ($method === 'POST') {
+            $adminController->updateQuizSettings();
         }
         break;
     default:
