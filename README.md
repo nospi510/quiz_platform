@@ -1,3 +1,15 @@
+# Bon à savoir 
+
+- Pour `Pyhton` : rester sur la branch `main` 
+- Pour `PHP` : Basculer sur la branche `php`
+
+```bash
+   git clone https://github.com/nospi510/quiz_platform.git
+   cd quiz_platform
+   git checkout php
+```
+
+
 # Quiz Platform
 
 Une plateforme de quiz en ligne intégrée à Asterisk pour la gestion des appels VoIP. Les utilisateurs doivent passer un appel via leur extension SIP pour accéder au quiz. Les administrateurs peuvent consulter les résultats des participants.
@@ -18,18 +30,20 @@ Une plateforme de quiz en ligne intégrée à Asterisk pour la gestion des appel
 ## Installation
 1. Cloner le dépôt :
    
-   git clone https://github.com/nospi510/quiz_platform.git
+```bash
+    git clone https://github.com/nospi510/quiz_platform.git
    cd quiz_platform
-   
+```
 
-2. Créer un environnement virtuel et installer les dépendances :
+3. Créer un environnement virtuel et installer les dépendances :
    
+```python
    python -m venv .venv
    source .venv/bin/activate
    pip install -r requirements.txt
-   
+```
 
-3. Configurer la base de données MySQL :
+4. Configurer la base de données MySQL :
    ```sql
    CREATE DATABASE quiz_platform;
    CREATE DATABASE asteriskCDR;
@@ -39,7 +53,7 @@ Une plateforme de quiz en ligne intégrée à Asterisk pour la gestion des appel
    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://<user>:<password>@localhost/quiz_platform'
    ```
 
-4. Configurer Asterisk :
+5. Configurer Asterisk :
    - Assure-toi que `/etc/asterisk/pjsip.conf` et `/etc/asterisk/extensions.conf` sont accessibles en écriture par l'utilisateur exécutant l'application.
 
    ```bash
@@ -47,7 +61,7 @@ Une plateforme de quiz en ligne intégrée à Asterisk pour la gestion des appel
    sudo chmod 664 /etc/asterisk/pjsip.conf /etc/asterisk/extensions.conf
    ```
 
-5. Initialiser la base de données et charger les questions :
+6. Initialiser la base de données et charger les questions :
    ```bash
    python app.py
    ```
