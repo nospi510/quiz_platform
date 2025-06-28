@@ -90,6 +90,13 @@ Contenu :
 </VirtualHost>
 ```
 
+Renommer temporairemnt le  fichier `/etc/apache2/sites-available/000-default.conf`
+
+```bash
+mv /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf_backup
+```
+
+
 Activer le site et recharger Apache :
 
 ```bash
