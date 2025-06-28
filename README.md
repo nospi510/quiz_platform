@@ -79,8 +79,8 @@ Contenu :
 ```apache
 <VirtualHost *:80>
     ServerName localhost
-    DocumentRoot /var/www/quiz_platform/public
-    <Directory /var/www/quiz_platform/public>
+    DocumentRoot /var/www/html/quiz_platform/public
+    <Directory /var/www/html/quiz_platform/public>
         Options -Indexes +FollowSymLinks
         AllowOverride All
         Require all granted
